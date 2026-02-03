@@ -6,13 +6,12 @@ Not a dashboard. Not a churn score. ARPS-CORE explains **why** revenue is at ris
 
 ---
 
-## One-line pitch (for judges)
 
 > **"ARPS doesn't predict churn — it decides how to save revenue using causal reasoning and ROI optimization."**
 
 ---
 
-## What you build (single flow)
+## What is built (single flow)
 
 **Scenario:** A $120k ARR customer is at renewal risk. Leadership needs to know:
 1. **Why** the account is at risk (causal explanation)
@@ -55,7 +54,7 @@ Not a dashboard. Not a churn score. ARPS-CORE explains **why** revenue is at ris
 
 ---
 
-## Gemini integration (for judges)
+## Gemini integration : 
 
 - **Causal reasoning, not generation:** Context Weaver fuses CRM, support, and comms to explain *why*.
 - **Counterfactual ROI reasoning:** Resource Allocator uses **high thinking budget** for ROI comparison.
@@ -94,17 +93,6 @@ Not a dashboard. Not a churn score. ARPS-CORE explains **why** revenue is at ris
 
 ---
 
-## Demo script (3 minutes)
-
-| Time | Scene | Action |
-|------|--------|--------|
-| 0:00–0:45 | **The pain** | Show a “red” $120k account; “churn predicted but team doesn’t know why.” |
-| 0:45–1:45 | **The reasoning** | Paste CRM + support + Slack into ARPS; show Context Weaver pulling the real reason from the noise. |
-| 1:45–2:30 | **The decision** | Click “Solve”; show Resource Allocator thinking (spinner), ROI comparison, Policy Enforcer check. |
-| 2:30–3:00 | **The win** | “ARPS-CORE just saved $100k with a reasoning-based decision, not a guess.” |
-
----
-
 ## Tech stack
 
 - **Next.js 14** (App Router), **React 18**, **TypeScript**
@@ -114,10 +102,7 @@ Not a dashboard. Not a churn score. ARPS-CORE explains **why** revenue is at ris
 
 ---
 
-## Devpost submission (Gemini 3 Hackathon)
-
-- **200-word Gemini Integration** + **submission checklist** + **3-min video script** + **judging alignment:** see **[DEVPOST.md](./DEVPOST.md)**.
-- **Architecture diagram** (for judges): see **[ARCHITECTURE.md](./ARCHITECTURE.md)**.
+- **Architecture diagram** : see **[ARCHITECTURE.md](./ARCHITECTURE.md)**.
 
 ---
 
