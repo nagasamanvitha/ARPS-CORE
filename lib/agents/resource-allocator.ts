@@ -1,3 +1,4 @@
+import { ThinkingLevel } from "@google/genai";
 import { getGemini, MODELS } from "@/lib/gemini";
 import type { RankedAction, ResourceAllocatorResult } from "@/lib/types";
 
@@ -79,7 +80,7 @@ Use thinking to compare options step-by-step. Output valid JSON only.`;
       responseSchema: ROI_SCHEMA,
       thinkingConfig: {
         includeThoughts: true,
-        thinkingLevel: "high",
+        thinkingLevel: ThinkingLevel.HIGH,
       },
     },
   });

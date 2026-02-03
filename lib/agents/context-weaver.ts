@@ -1,3 +1,4 @@
+import { ThinkingLevel } from "@google/genai";
 import { getGemini, MODELS } from "@/lib/gemini";
 import type { CausalRiskResult } from "@/lib/types";
 
@@ -62,7 +63,7 @@ Output valid JSON matching the schema. No markdown, no extra text.`;
       responseSchema: CAUSAL_SCHEMA,
       thinkingConfig: {
         includeThoughts: true,
-        thinkingLevel: "high",
+        thinkingLevel: ThinkingLevel.HIGH,
       },
     },
   });
