@@ -1,4 +1,4 @@
-# ARPS-CORE — Architecture (for judges)
+# ARPS-CORE — Architecture 
 
 ## High-level flow
 
@@ -49,7 +49,6 @@
 
 All agents use **Gemini 3 only** (no 2.x). Structured outputs feed the UI (cards, tables); thought signatures are shown in the sidebar.
 
-## Why this wins (judge view)
 
 - **Technical (40%):** Real app, Gemini 3–only, multi-agent, structured outputs, thought visibility.
 - **Impact (20%):** Revenue protection for every SaaS; CRO/CFO pain; scalable.
