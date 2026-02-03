@@ -1,0 +1,6 @@
+# Netlify: set build command to "npm run build", add env GEMINI_API_KEY.
+# For Next.js API routes, prefer Vercel (one-click) or use Netlify's Next.js runtime.
+
+[build]
+  command = "npm run build"
+  publish = ".next"

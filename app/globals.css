@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --arps-red: #e11d48;
+  --arps-amber: #f59e0b;
+  --arps-emerald: #10b981;
+  --arps-slate: #0f172a;
+}
+
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Subtle grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Thought signature / reasoning block */
+.thought-block {
+  border-left: 3px solid var(--arps-amber);
+  background: rgba(245, 158, 11, 0.06);
+}
+
+/* Risk card pulse */
+.risk-pulse {
+  box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4);
+  animation: risk-pulse 2s ease-out infinite;
+}
+
+@keyframes risk-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(225, 29, 72, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+
+/* Spinner for "thinking" */
+.thinking-spinner {
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-top-color: var(--arps-amber);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
