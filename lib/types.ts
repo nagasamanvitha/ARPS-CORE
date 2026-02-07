@@ -39,6 +39,9 @@ export interface CausalRiskResult {
   plainEnglishSummary: string;
   thoughtSummary?: string;
   confidence: "high" | "medium" | "low";
+  /** Set when internal conflict detected (e.g. Sales vs Compliance vs Engineering). */
+  conflictDetected?: boolean;
+  conflictDescription?: string;
 }
 
 // --- Resource Allocator output (ROI) ---
@@ -56,6 +59,8 @@ export interface ResourceAllocatorResult {
   rankedActions: RankedAction[];
   recommendedActionId: string;
   thoughtSummary?: string;
+  /** Full text of re-balancing email for "Execute Strategic Pivot" (when triple conflict). */
+  strategicPivotAction?: string;
 }
 
 // --- Policy Enforcer output ---
@@ -68,6 +73,51 @@ export interface PolicyCheckResult {
   thoughtSummary?: string;
 }
 
+/** Optional RAG/source snippets to show on hover (Verify the AI). */
+export interface SourceSnippets {
+  arr?: string;
+  primaryDriver?: string;
+  /** e.g. "Verified via CRM Snapshot (AC-120K) - 99% Grounding" */
+  groundingLabel?: string;
+}
+
+/** Before/After risk levels for Risk Radar. */
+export interface RiskRadarLevels {
+  revenueRisk: "high" | "medium" | "low";
+  legalRisk: "high" | "medium" | "low";
+  teamBurnout: "high" | "medium" | "low" | "stable";
+}
+
+export interface RiskRadar {
+  before: RiskRadarLevels;
+  after: RiskRadarLevels;
+}
+
+/** Authorization Summary modal content (built from API context when conflict detected). */
+export interface AuthorizationSummary {
+  accountLabel: string;
+  thoughtTraceIntro?: string;
+  conflictIdentification: string;
+  constraintSatisfaction: string;
+  legalPolicyCheck: string;
+  workflowDispatches: { jira: string; slack: string; email: string };
+  directCost: number;
+  revenueProtected: number;
+  liabilityMitigation: number;
+  policyAuditItems: { label: string; text: string }[];
+  securityGuardrail: string;
+  /** Optional View Math breakdown (source/logic for each number). */
+  calculationLogic?: {
+    directCostLogic?: string;
+    directCostSource?: string;
+    revenueProtectedLogic?: string;
+    revenueProtectedSource?: string;
+    liabilityLogic?: string;
+    liabilitySource?: string;
+    liabilityCredibility?: string;
+  };
+}
+
 // --- Full pipeline result ---
 export interface ARPSResult {
   causalRisk: CausalRiskResult;
@@ -75,6 +125,18 @@ export interface ARPSResult {
   recommendedActionId: string;
   policyCheck: PolicyCheckResult;
   auditLog: AuditEntry[];
+  sourceSnippets?: SourceSnippets;
+  /** Internal conflict detected (e.g. Sales vs. Compliance) — show Conflict Alert. */
+  conflictDetected?: boolean;
+  conflictDescription?: string;
+  /** Risk Radar: Before ARPS vs After ARPS. */
+  riskRadar?: RiskRadar;
+  /** Strategic pivot action (e.g. Jira re-assignment email) for "Execute Strategic Pivot". */
+  strategicPivotAction?: string;
+  /** One-line final recommendation for audit display. */
+  finalRecommendation?: string;
+  /** Authorization Summary modal content (built from context when conflict). Not hardcoded. */
+  authorizationSummary?: AuthorizationSummary;
 }
 
 export interface AuditEntry {
@@ -82,6 +144,8 @@ export interface AuditEntry {
   timestamp: string;
   summary: string;
   thoughtSummary?: string;
+  /** Internal debate / reasoning logic (e.g. "Considering X. Rejected. Pivoting to Y.") */
+  reasoningLogic?: string;
 }
 
 export interface SolveInput {

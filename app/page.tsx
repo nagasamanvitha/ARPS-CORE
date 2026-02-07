@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { RealWorldScene } from "@/components/RealWorldScene";
 import { InputPanel } from "@/components/InputPanel";
 import { RiskSummary } from "@/components/RiskSummary";
+import { RiskRadar } from "@/components/RiskRadar";
 import { ReasoningSidebar } from "@/components/ReasoningSidebar";
 import { ROIActions } from "@/components/ROIActions";
 import { PolicyCompliance } from "@/components/PolicyCompliance";
@@ -66,23 +67,25 @@ export default function Home() {
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           <div className="space-y-8">
             <RealWorldScene />
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-sm text-slate-400">No API key or quota exceeded?</span>
+            <div className="rounded-lg border border-slate-600 bg-slate-800/60 p-4">
+              <p className="mb-2 text-sm text-slate-300">
+                <strong>First time here?</strong> Click below to see the full ARPS flow with a <strong>Triple Conflict</strong> scenario (Sales vs. Compliance vs. Engineering): risk summary, Conflict Alert, Risk Radar, ROI-ranked actions, policy check, and thought signatures — no API key needed.
+              </p>
               <button
                 type="button"
                 onClick={showDemo}
-                className="rounded-lg border border-emerald-500/50 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/20"
+                className="rounded-lg border border-emerald-500/50 bg-emerald-500/20 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/30"
               >
-                See demo result (no API)
+                See demo result (no API key needed)
               </button>
             </div>
             <InputPanel onSolve={onSolve} solving={solving} />
 
             {error && (
-              <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4">
-                <p className="text-rose-300">{error}</p>
-                <p className="mt-2 text-sm text-slate-400">
-                  Judges: use &quot;See demo result (no API)&quot; above to view the full flow without an API key.
+              <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+                <p className="text-amber-200">{error}</p>
+                <p className="mt-2 text-sm text-slate-300">
+                  <strong>No problem.</strong> Click &quot;See demo result (no API)&quot; above to view the full flow — Revenue Risk Summary, Ranked actions by ROI, Policy compliance, and Thought signatures — without an API key.
                 </p>
               </div>
             )}
@@ -93,10 +96,25 @@ export default function Home() {
                   causalRisk={result.causalRisk}
                   arr={lastInput?.arr ?? 0}
                   renewalDate={lastInput?.renewalDate ?? ""}
+                  sourceSnippets={
+                    result.sourceSnippets ?? {
+                      arr: `CRM: ARR $${(lastInput?.arr ?? 0).toLocaleString()}. Renewal date ${lastInput?.renewalDate ?? ""}.`,
+                      primaryDriver: `Support Ticket #314: Status=Open since Dec 26. ${result.causalRisk.primaryDriver}`,
+                    }
+                  }
+                  conflictDetected={result.conflictDetected}
+                  conflictDescription={result.conflictDescription}
+                  accountName="Acme Corp (AC-120K)"
                 />
+                {result.riskRadar && (
+                  <RiskRadar riskRadar={result.riskRadar} />
+                )}
                 <ROIActions
                   rankedActions={result.rankedActions}
                   recommendedActionId={result.recommendedActionId}
+                  strategicPivotAction={result.strategicPivotAction}
+                  conflictDetected={result.conflictDetected}
+                  authorizationSummary={result.authorizationSummary}
                 />
                 <PolicyCompliance policyCheck={result.policyCheck} />
                 <AuditLog auditLog={result.auditLog} />
@@ -110,6 +128,7 @@ export default function Home() {
                 auditLog={result.auditLog}
                 expandedAgent={expandedAgent}
                 onToggle={setExpandedAgent}
+                finalRecommendation={result.finalRecommendation}
               />
             </aside>
           )}

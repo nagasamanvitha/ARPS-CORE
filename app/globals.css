@@ -27,6 +27,16 @@ body {
   background: rgba(245, 158, 11, 0.06);
 }
 
+/* Readable thought/summary text: line length + spacing */
+.thought-signature-text {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+.thought-signature-text p,
+.thought-signature-text li {
+  margin: 0;
+}
+
 /* Risk card pulse */
 .risk-pulse {
   box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4);

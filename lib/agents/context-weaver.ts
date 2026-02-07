@@ -13,6 +13,8 @@ const CAUSAL_SCHEMA = {
     },
     plainEnglishSummary: { type: "string", description: "2-3 sentence causal explanation" },
     confidence: { type: "string", enum: ["high", "medium", "low"] },
+    conflictDetected: { type: "boolean", description: "True when internal conflict exists (e.g. Sales vs Compliance vs Engineering, legal threat + burnout + security)" },
+    conflictDescription: { type: "string", description: "One line describing the conflict, e.g. 'Sales vs Compliance (security bypass vs SOC2). Engineering capacity vs CFO revenue target.'" },
   },
   required: ["primaryDriver", "secondaryDrivers", "plainEnglishSummary", "confidence"],
 };
@@ -49,6 +51,7 @@ TASK:
 3. List SECONDARY contributors.
 4. Write a plain-English summary (2-3 sentences) that a CRO can read.
 5. Set confidence: high if evidence is clear, medium if inferred, low if speculative.
+6. If you detect INTERNAL CONFLICT (e.g. Sales pushing for fast fix vs Compliance blocking security bypass vs CTO protecting engineer burnout, or legal threat MSA Section 9 + engineer at capacity), set conflictDetected: true and set conflictDescription to one line (e.g. "Internal conflict: Sales vs Compliance (security bypass vs SOC2). Engineering capacity (Mike at 48 hrs) vs CFO revenue target.").
 
 Output valid JSON matching the schema. No markdown, no extra text.`;
 
@@ -83,7 +86,15 @@ Output valid JSON matching the schema. No markdown, no extra text.`;
 
   let causal: CausalRiskResult;
   try {
-    causal = JSON.parse(text || "{}") as CausalRiskResult;
+    const parsed = JSON.parse(text || "{}") as Record<string, unknown>;
+    causal = {
+      primaryDriver: typeof parsed.primaryDriver === "string" ? parsed.primaryDriver : "Unable to parse.",
+      secondaryDrivers: Array.isArray(parsed.secondaryDrivers) ? parsed.secondaryDrivers.filter((s): s is string => typeof s === "string") : [],
+      plainEnglishSummary: typeof parsed.plainEnglishSummary === "string" ? parsed.plainEnglishSummary : text || "No summary.",
+      confidence: ["high", "medium", "low"].includes(parsed.confidence as string) ? (parsed.confidence as "high" | "medium" | "low") : "low",
+      conflictDetected: typeof parsed.conflictDetected === "boolean" ? parsed.conflictDetected : undefined,
+      conflictDescription: typeof parsed.conflictDescription === "string" ? parsed.conflictDescription : undefined,
+    };
   } catch {
     causal = {
       primaryDriver: "Unable to parse model output.",

@@ -27,7 +27,10 @@ It's been a week. Still happening. Our renewal is in 60 days and we're evaluatin
 Engineering is looking into it. I'll follow up by EOW.
 
 --- 2025-01-10 09:33 (Customer - James Park) ---
-Still no fix. We've had this since December. I need to report to our CFO. We need this resolved before we can commit to renewal.`;
+Still no fix. We've had this since December. I need to report to our CFO. We need this resolved before we can commit to renewal.
+
+--- 2025-01-14 08:00 (Customer - James Park, IT Director) ---
+My CFO just saw the "Security Bypass" flag on the staging environment. This is a breach of our Master Service Agreement (MSA) Section 9. We are now involving legal. If a SOC2-compliant fix isn't live by Monday, we aren't just churning; we are suing for damages regarding the 80 blocked users.`;
 
 // Real-world style: Slack channel export (messy, many messages)
 const DEFAULT_SLACK = `#customer-acme-corp
@@ -44,7 +47,16 @@ Exported: 2025-01-15
 [2025-01-09 14:00] Jordan Lee: Any update on Acme? Sales is getting pressure.
 [2025-01-09 14:15] Sarah Chen: Mike said he'd take ENG-8821. No ETA yet. James (customer) said they need a fix before they can commit to renewal.
 [2025-01-10 11:00] Mike Torres: Found the issue — Okta timeout config on our side. Fix is in QA. Should ship by Friday.
-[2025-01-10 11:02] Sarah Chen: I'll let James know. Thanks Mike.`;
+[2025-01-10 11:02] Sarah Chen: I'll let James know. Thanks Mike.
+
+#security-compliance
+[2025-01-11 14:20] SecRob: I just audited ENG-8821. The "Okta timeout fix" Mike is shipping is actually just bypassing the handshake security protocol to make it "fast." This violates our SOC2 Section 4.2. If we ship this Friday, we fail our audit in March.
+[2025-01-11 14:25] Jordan Lee (Sales): We don't have time for a perfect fix! Acme is $120k. If we don't ship Friday, they churn. Just bypass it for now and fix it later.
+[2025-01-11 14:30] SecRob: Absolutely not. A security bypass is a bigger risk than a churn.
+
+#exec-alignment
+[2025-01-12 16:00] CFO_Janet: Just saw the Acme renewal forecast. Jordan, if that $120k doesn't hit by March 15, we miss our Q1 targets, and the board will freeze the engineering hiring budget.
+[2025-01-12 16:05] CTO_Vikram: Janet, Engineering is already redlined. Mike is burnt out. If we force him into 20 hours of OT to fix Acme's SSO, he's going to quit, and he's the only one who knows our legacy auth-gateway. Do not force OT. Mike is at 48 hours this week.`;
 
 export interface InputPanelProps {
   onSolve: (input: {
@@ -70,7 +82,7 @@ export function InputPanel({ onSolve, solving }: InputPanelProps) {
   const [availableHours, setAvailableHours] = useState(40);
   const [discountCapPercent, setDiscountCapPercent] = useState(15);
   const [budgetCapDollars, setBudgetCapDollars] = useState(10000);
-  const [rulesDescription, setRulesDescription] = useState("Max 15% discount without VP approval. No overtime without approval.");
+  const [rulesDescription, setRulesDescription] = useState("Rule 4: Security bypasses or SOC2 violations prohibited. Rule 5: Emergency OT (up to 10 hrs) allowed for Tier-1 (ARR > $100k) when it prevents SOC2 violation. Constraint 9: No IC over 50 hrs/week for 2+ weeks. Max 15% discount without VP approval.");
 
   const loadRealWorldSample = useCallback(() => {
     setCrmSnapshot(DEFAULT_CRM);
@@ -80,7 +92,7 @@ export function InputPanel({ onSolve, solving }: InputPanelProps) {
     setRenewalDate("2025-03-15");
     setDiscountCapPercent(15);
     setBudgetCapDollars(10000);
-    setRulesDescription("Max 15% discount without VP approval. No overtime without approval.");
+    setRulesDescription("Rule 4: Security bypasses or SOC2 violations prohibited. Rule 5: Emergency OT (up to 10 hrs) allowed for Tier-1 (ARR > $100k) when it prevents SOC2 violation. Constraint 9: No IC over 50 hrs/week for 2+ weeks. Max 15% discount without VP approval.");
   }, []);
 
   const handleSolve = useCallback(() => {

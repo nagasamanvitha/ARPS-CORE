@@ -54,7 +54,17 @@ Without Gemini 3’s advanced reasoning, multimodal fusion, and structured outpu
 
 ---
 
-## 4. Three-minute demonstration video script
+## 4. 30-Second Elevator Pitch (first 10 seconds of demo video)
+
+Use this script to introduce your project and grab attention in the first 10 seconds:
+
+> **"We built ARPS-CORE because most companies don't lose customers because of bad products—they lose them because of internal friction.**
+>
+> **Our system uses Gemini 3 to weave together Slack drama, Jira backlogs, and CRM data to find the one 'Third Path' that avoids churn. In this demo, watch how the AI identifies a $120k risk and—instead of just suggesting a discount—re-balances an entire engineering team's workload to ship a compliant fix and stop a lawsuit. We aren't just predicting churn; we are orchestrating its prevention."**
+
+---
+
+## 5. Three-minute demonstration video script
 
 | Time | What to show / say |
 |------|---------------------|
@@ -66,7 +76,7 @@ Without Gemini 3’s advanced reasoning, multimodal fusion, and structured outpu
 
 ---
 
-## 5. Judging criteria alignment (how you score)
+## 6. Judging criteria alignment (how you score)
 
 | Criterion | Weight | How ARPS-CORE addresses it |
 |-----------|--------|-----------------------------|
@@ -77,7 +87,7 @@ Without Gemini 3’s advanced reasoning, multimodal fusion, and structured outpu
 
 ---
 
-## 6. One-line pitch (for project title / tagline)
+## 7. One-line pitch (for project title / tagline)
 
 **ARPS-CORE:** Causal, ROI-aware revenue protection — powered by Gemini 3.
 
@@ -94,7 +104,7 @@ Without Gemini 3’s advanced reasoning, multimodal fusion, and structured outpu
 
 ---
 
-## 8. Pre-submit checklist (must win)
+## 9. Pre-submit checklist (must win)
 
 Before you hit Submit on Devpost, verify:
 
@@ -103,13 +113,13 @@ Before you hit Submit on Devpost, verify:
 | **Public link works** | Open the deployed URL in an incognito window. Click **"See demo result (no API)"** — you must see Risk Summary, Ranked actions, Policy compliance, Thought signatures. No login, no paywall. |
 | **No API key in repo** | `git status` and repo file list: `.env.local` and any file with your key must **not** be committed. Use `.gitignore` (already has `.env.local`). |
 | **README has Gemini 3** | First paragraph of README mentions "Gemini 3" and the one-line pitch. Judges skim this. |
-| **Video ≤ 3 min** | Judges may not watch beyond 3 minutes. Use the script in §4; trim if needed. |
+| **Video ≤ 3 min** | Judges may not watch beyond 3 minutes. Use the script in §5; trim if needed. |
 | **200-word text pasted** | The "Text description describing the Gemini Integration" field on Devpost must contain the ~200-word block from §1. |
 | **Repo is Public** | GitHub repo visibility = Public so judges can open the code link. |
 
 ---
 
-## 9. Is this app "must win"? What to modify?
+## 10. Is this app "must win"? What to modify?
 
 **Honest answer:** No submission is guaranteed to win. This app is **strong** on:
 
